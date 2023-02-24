@@ -1,7 +1,15 @@
+
+:root {
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+}
+
+
 @import 'core/variables';
 @import 'core/reset';
 @import 'core/mixins';
 @import 'core/animations';
 @import 'layout/header';
+@import 'layout/main';
 @import 'layout/footer';
 @import 'pages/index';
+
