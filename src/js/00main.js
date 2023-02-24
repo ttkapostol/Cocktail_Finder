@@ -2,6 +2,18 @@
 
 console.log('>> Ready :)');
 
+const input = document.querySelector('.js-input');
+const searchBtn = document.querySelector('.js-search-btn');
+const resetBtn = document.querySelector('.js-reset-btn');
+const cocktailsList = document.querySelector('.js-list-cocktails');
+const favouritesList = document.querySelector('.js-list-favourites');
+
+
+fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
+  .then((response) => response.json())
+  .then((data) => (document.body.innerHTML = data.result));
+
+
 // 0- Crear variables básicas
 // 1- Obtener los datos de la API (fetch, lista )
 // 2- Búsqueda por nombre --ev input
