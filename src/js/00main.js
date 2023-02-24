@@ -1,7 +1,16 @@
 'use strict';
 
-console.log('>> Ready :)');
+// 2- Búsqueda por nombre --ev input
 
+// 3- Incluir/Pintarlos en el HTML : innerHtml / DOM Avanzado
+
+// 6- Lista que se queda pintada 1/2
+
+// 7- Lista que se queda guardada en LocalStorage 1/2
+
+// 8- Quitar favoritos de la lista y del localStorage (splice y removeItem?)
+
+const imgPlaceholder = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV'
 const input = document.querySelector('.js-input');
 const searchBtn = document.querySelector('.js-search-btn');
 const resetBtn = document.querySelector('.js-reset-btn');
@@ -11,41 +20,73 @@ const favouritesList = document.querySelector('.js-list-favourites');
 let cocktailsListData = [];
 let favouritesListData = [];
 
-//const cocktailsStored = JSON.parse(localStorage.getItem("cocktails"));
+const storedCocktails = JSON.parse(localStorage.getItem(`cocktails`));
 
-fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita') /*${inputSearchValue}*/
+if (storedCocktails) {
+  cocktailsListData = storedCocktails;
+  renderCocktailsList(cocktailsListData);
+  console.log('I have LS');
+} else {
+fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita') //${inputSearchValue}
   .then((response) => response.json())
   .then(data => {
-    cocktailsListData = data.drinks;
-    console.log(data.drinks);
-    renderCocktailsList(cocktailsListData);
+      cocktailsListData = data.drinks;
+      console.log(data.drinks);
+      renderCocktailsList(cocktailsListData);
+      localStorage.setItem('cocktails', JSON.stringify(cocktailsListData));
+    console.log('Hago fetch');  
   });
-
-//Pinta todos los elementos de la lista
-function renderCocktailsList(cocktailsListData) {
-  for (const cocktail of cocktailsListData) {
-    cocktailsList.innerHTML += renderCocktail(cocktail);
-  }
-//addEventToPalette();
-}
+};
 
 function renderCocktail(cocktail) {
-  let html = `<li class="li">
-        <article class="li__article js-li-cocktail" id=${cocktail.idDrink}">
+  let html = `<li class="li js-li-cocktail" id="${cocktail.idDrink}">
+        <article class="li__article">
             <h3 class="li__article--title">${cocktail.strDrink}</h3>
-            <img class="li__article--img" alt="Photo of the cocktail" title="Photo of the cocktail" src=${cocktail.strDrinkThumb} />
+            <img class="li__article--img" alt="Photo of the cocktail" title="Photo of the cocktail" src=${cocktail.strDrinkThumb || imgPlaceholder} />
         </article>
     </li>`;
   return html;
 }
 
+function renderCocktailsList(cocktailsListData) {
+  for (const cocktail of cocktailsListData) {
+    cocktailsList.innerHTML += renderCocktail(cocktail);
+  }
+addEventToCocktail()
+}
 
-// 1- Obtener los datos de la API (fetch, lista )
-// 2- Búsqueda por nombre --ev input
-// 3- Incluir/Pintarlos en el HTML : innerHtml / DOM Avanzado
-// 4- Seleccionar los favoritos
-// 5- Pintar los favoritos en su lista (cuidado con los duplicados > comprobar si existen ya o no findIndex)
-// 6- Lista que se queda pintada
-// 7- Lista que se queda guardada en LocalStorage
-// 8- Quitar favoritos de la lista y del localStorage (splice y removeItem?)
+function renderFavouritesList(favouritesListData) {
+  favouritesList.innerHTML = ``;
+  for (const favCocktail of favouritesListData) {
+    favouritesList.innerHTML += renderCocktail(favCocktail);
+  }
+}
+
+function addEventToCocktail() {
+  const liElementsList = document.querySelectorAll('.js-li-cocktail');
+  for (const li of liElementsList) {
+    li.addEventListener('click', handleClickCocktail);
+  }
+}
+
+function handleClickCocktail(ev) {
+  ev.currentTarget.classList.toggle('selected');
+
+  const idSelected = ev.currentTarget.id;
+  console.log(idSelected);
+
+  const selectedCocktail = cocktailsListData.find(cocktail => cocktail.idDrink === idSelected);
+  
+
+  const indexCocktail = favouritesListData.findIndex(cocktail => cocktail.idDrink === idSelected);
+  console.log(indexCocktail);
+
+  if (indexCocktail === -1) { 
+    favouritesListData.push(selectedCocktail);
+  } else {
+    favouritesListData.splice(indexCocktail, 1);
+  }
+  renderFavouritesList(favouritesListData);
+  localStorage.setItem('favourites', JSON.stringify(favouritesListData));
+}
 
