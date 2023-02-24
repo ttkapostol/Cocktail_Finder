@@ -8,13 +8,38 @@ const resetBtn = document.querySelector('.js-reset-btn');
 const cocktailsList = document.querySelector('.js-list-cocktails');
 const favouritesList = document.querySelector('.js-list-favourites');
 
+let cocktailsListData = [];
+let favouritesListData = [];
 
-fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
+//const cocktailsStored = JSON.parse(localStorage.getItem("cocktails"));
+
+fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita') /*${inputSearchValue}*/
   .then((response) => response.json())
-  .then((data) => (document.body.innerHTML = data.result));
+  .then(data => {
+    cocktailsListData = data.drinks;
+    console.log(data.drinks);
+    renderCocktailsList(cocktailsListData);
+  });
+
+//Pinta todos los elementos de la lista
+function renderCocktailsList(cocktailsListData) {
+  for (const cocktail of cocktailsListData) {
+    cocktailsList.innerHTML += renderCocktail(cocktail);
+  }
+//addEventToPalette();
+}
+
+function renderCocktail(cocktail) {
+  let html = `<li class="li">
+        <article class="li__article js-li-cocktail" id=${cocktail.idDrink}">
+            <h3 class="li__article--title">${cocktail.strDrink}</h3>
+            <img class="li__article--img" alt="Photo of the cocktail" title="Photo of the cocktail" src=${cocktail.strDrinkThumb} />
+        </article>
+    </li>`;
+  return html;
+}
 
 
-// 0- Crear variables básicas
 // 1- Obtener los datos de la API (fetch, lista )
 // 2- Búsqueda por nombre --ev input
 // 3- Incluir/Pintarlos en el HTML : innerHtml / DOM Avanzado
