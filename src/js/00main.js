@@ -30,7 +30,7 @@ if (storedCocktails) {
   renderCocktailsList(cocktailsListData);
   console.log('I have LS');
 } else {
-fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita') //${inputSearchValue}
+fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita') 
   .then((response) => response.json())
   .then(data => {
       cocktailsListData = data.drinks;
@@ -120,10 +120,11 @@ function handleClickSearch(ev) {
 
 //Reset everything with the reset button
 
-function handleClickReset() {
+function handleClickReset(event) {
+  event.preventDefault();
   cocktailsList.innerHTML = '';
   favouritesList.innerHTML = '';
-  searchValue = '';
+  input.value = '';
   localStorage.removeItem('cocktails');
 }
 
