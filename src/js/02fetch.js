@@ -1,3 +1,5 @@
+/* eslint-disable strict */
+
 if (storedCocktails) {
   cocktailsListData = storedCocktails;
   renderCocktailsList(cocktailsListData);

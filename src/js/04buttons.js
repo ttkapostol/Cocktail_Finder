@@ -1,3 +1,5 @@
+/* eslint-disable strict */
+
 // Search cocktails with the search button
 
 function handleEnterSearch(ev) {
@@ -18,6 +20,26 @@ function handleClickSearch(ev) {
       renderCocktailsList(cocktailsListData);
     }
     );
+}
+
+//Remove from favourites
+function handleClickRemoveFav(ev) {
+const idSelected = ev.currentTarget.id;
+  const indexCocktail = listDataFavorites.findIndex(cocktail => cocktail.idDrink === idSelected);
+  if(indexCocktail !== -1) {
+    listDataFavorites.splice(indexCocktail, 1);
+  }
+  renderFavouritesList(favouritesListData);
+  renderCocktailsList(cocktailsListData);
+  localStorage.setItem('cocktails', JSON.stringify(favouritesListData));
+}
+
+
+function removeFromFav() {
+  const favBtns = document.querySelectorAll('.js-fav-btn');
+  for (const eachBtn of favBtns) {
+    eachBtn.addEventListener('click', handleClickRemoveFav);
+  }
 }
 
 //Reset everything with the reset button

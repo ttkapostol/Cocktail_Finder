@@ -1,11 +1,12 @@
+/* eslint-disable strict */
 
 //Render cocktails
 function renderCocktail(cocktail) {
   let html = `<li class="li js-li-cocktail" id="${cocktail.idDrink}">
         <article class="li__article">
             <h3 class="li__article--title">${cocktail.strDrink}</h3>
+            <span class="fa-solid fa-heart hidden js-fav-btn"></span>
             <img class="li__article--img" alt="Photo of the cocktail" title="Photo of the cocktail" src=${cocktail.strDrinkThumb || imgPlaceholder} />
-            <div><span class="fa-solid fa-star hidden js-fav-btn"></span></div>
             </article>
     </li>`;
   return html;
@@ -26,7 +27,8 @@ function renderFavouritesList(favouritesListData) {
   for (const favCocktail of favouritesListData) {
     favouritesList.innerHTML += renderCocktail(favCocktail);
   }
-  favBtn.classList.remove('hidden');
+  favBtns.classList.remove('hidden');
+  removeFromFav()
 }
 
 //Select favourites
