@@ -8,12 +8,15 @@
 
 // 7- Lista que se queda guardada en LocalStorage 1/2
 
-// 8- Quitar favoritos de la lista y del localStorage (splice y removeItem?)
+// 9- Quitar favoritos con btn
+
+// 10- Quitar favoritos del localStorage (removeItem?)
 
 const imgPlaceholder = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV'
 const input = document.querySelector('.js-input');
 const searchBtn = document.querySelector('.js-search-btn');
 const resetBtn = document.querySelector('.js-reset-btn');
+const favBtn = document.querySelector('.js-fav-btn');
 const cocktailsList = document.querySelector('.js-list-cocktails');
 const favouritesList = document.querySelector('.js-list-favourites');
 
@@ -34,16 +37,19 @@ fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita') //${
       console.log(data.drinks);
       renderCocktailsList(cocktailsListData);
       localStorage.setItem('cocktails', JSON.stringify(cocktailsListData));
-    console.log('Hago fetch');  
+      console.log('Hago fetch');
   });
 };
 
+
+//Render cocktails
 function renderCocktail(cocktail) {
   let html = `<li class="li js-li-cocktail" id="${cocktail.idDrink}">
         <article class="li__article">
             <h3 class="li__article--title">${cocktail.strDrink}</h3>
             <img class="li__article--img" alt="Photo of the cocktail" title="Photo of the cocktail" src=${cocktail.strDrinkThumb || imgPlaceholder} />
-        </article>
+            <i class="fa-solid fa-star hidden js-fav-btn"></i>
+            </article>
     </li>`;
   return html;
 }
@@ -55,28 +61,25 @@ function renderCocktailsList(cocktailsListData) {
 addEventToCocktail()
 }
 
+
+//Render favourite cocktails
+
 function renderFavouritesList(favouritesListData) {
   favouritesList.innerHTML = ``;
   for (const favCocktail of favouritesListData) {
     favouritesList.innerHTML += renderCocktail(favCocktail);
   }
+  /*favBtn.classList.remove('hidden');*/
 }
 
-function addEventToCocktail() {
-  const liElementsList = document.querySelectorAll('.js-li-cocktail');
-  for (const li of liElementsList) {
-    li.addEventListener('click', handleClickCocktail);
-  }
-}
+//Select favourites
 
 function handleClickCocktail(ev) {
   ev.currentTarget.classList.toggle('selected');
-
   const idSelected = ev.currentTarget.id;
   console.log(idSelected);
 
   const selectedCocktail = cocktailsListData.find(cocktail => cocktail.idDrink === idSelected);
-  
 
   const indexCocktail = favouritesListData.findIndex(cocktail => cocktail.idDrink === idSelected);
   console.log(indexCocktail);
@@ -87,6 +90,32 @@ function handleClickCocktail(ev) {
     favouritesListData.splice(indexCocktail, 1);
   }
   renderFavouritesList(favouritesListData);
+
   localStorage.setItem('favourites', JSON.stringify(favouritesListData));
+  console.log('favourites');
 }
 
+function addEventToCocktail() {
+  const liElementsList = document.querySelectorAll('.js-li-cocktail');
+  for (const li of liElementsList) {
+    li.addEventListener('click', handleClickCocktail);
+  }
+}
+
+// Búsqueda por search
+
+function handleClickSearch(ev) {
+  ev.preventDefault();
+  cocktailsList.innerHTML = '';
+  const searchValue = input.value;
+  
+  fetch(`http://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchValue}`)
+    .then((response) => response.json())
+    .then((data) => {
+      cocktailsListData = data.drinks;
+      renderCocktailsList(cocktailsListData);
+    }
+    );
+}
+
+searchBtn.addEventListener('click', handleClickSearch);
