@@ -1,32 +1,43 @@
+/* eslint-disable strict */
 
 //Render cocktails
 function renderCocktail(cocktail) {
-  let html = `<li class="li js-li-cocktail" id="${cocktail.idDrink}">
-        <article class="li__article">
-            <h3 class="li__article--title">${cocktail.strDrink}</h3>
-            <img class="li__article--img" alt="Photo of the cocktail" title="Photo of the cocktail" src=${cocktail.strDrinkThumb || imgPlaceholder} />
-            <div><span class="fa-solid fa-star hidden js-fav-btn"></span></div>
-            </article>
-    </li>`;
-  return html;
+  const liElement = document.createElement('li');
+  const articleElement = document.createElement('article');
+  const h3Element = document.createElement('h3');
+  const title = document.createTextNode(cocktail.strDrink);
+  const imgElement = document.createElement('img');
+
+  liElement.setAttribute('class', 'li js-li-cocktail');
+  liElement.dataset.idLi = cocktail.idDrink;
+
+  articleElement.setAttribute('class', 'li__article');
+  
+  h3Element.appendChild(title);
+  
+  imgElement.setAttribute('src', cocktail.strDrinkThumb || imgPlaceholder);
+  imgElement.setAttribute('class', 'li__article--img');
+
+  articleElement.appendChild(h3Element);
+  articleElement.appendChild(imgElement);
+  liElement.appendChild(articleElement);
+  cocktailsList.appendChild(liElement);
 }
 
 function renderCocktailsList(cocktailsListData) {
   for (const cocktail of cocktailsListData) {
-    cocktailsList.innerHTML += renderCocktail(cocktail);
+    renderCocktail(cocktail);
   }
-addEventToCocktail()
+addEventToCocktail();
 }
-
 
 //Render favourite cocktails
 
 function renderFavouritesList(favouritesListData) {
   favouritesList.innerHTML = ``;
-  for (const favCocktail of favouritesListData) {
-    favouritesList.innerHTML += renderCocktail(favCocktail);
+  for (const cocktail of favouritesListData) {
+    renderCocktail(cocktail);
   }
-  favBtn.classList.remove('hidden');
 }
 
 //Select favourites
@@ -43,8 +54,7 @@ function handleClickCocktail(ev) {
     favouritesListData.splice(indexCocktail, 1);
   }
   renderFavouritesList(favouritesListData);
-
-  localStorage.setItem('favourites', JSON.stringify(favouritesListData));
+  localStorage.setItem('cocktails', JSON.stringify(favouritesListData));
 }
 
 function addEventToCocktail() {
@@ -53,7 +63,3 @@ function addEventToCocktail() {
     li.addEventListener('click', handleClickCocktail);
   }
 }
-
-
-
-
