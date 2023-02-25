@@ -1,7 +1,5 @@
 'use strict';
 
-// 2- Búsqueda por nombre --ev input
-
 // 3- Incluir/Pintarlos en el HTML : innerHtml / DOM Avanzado
 
 // 6- Lista que se queda pintada 1/2
@@ -48,7 +46,7 @@ function renderCocktail(cocktail) {
         <article class="li__article">
             <h3 class="li__article--title">${cocktail.strDrink}</h3>
             <img class="li__article--img" alt="Photo of the cocktail" title="Photo of the cocktail" src=${cocktail.strDrinkThumb || imgPlaceholder} />
-            <i class="fa-solid fa-star hidden js-fav-btn"></i>
+            <div><span class="fa-solid fa-star hidden js-fav-btn"></span></div>
             </article>
     </li>`;
   return html;
@@ -69,7 +67,7 @@ function renderFavouritesList(favouritesListData) {
   for (const favCocktail of favouritesListData) {
     favouritesList.innerHTML += renderCocktail(favCocktail);
   }
-  /*favBtn.classList.remove('hidden');*/
+  favBtn.classList.remove('hidden');
 }
 
 //Select favourites
@@ -77,12 +75,8 @@ function renderFavouritesList(favouritesListData) {
 function handleClickCocktail(ev) {
   ev.currentTarget.classList.toggle('selected');
   const idSelected = ev.currentTarget.id;
-  console.log(idSelected);
-
   const selectedCocktail = cocktailsListData.find(cocktail => cocktail.idDrink === idSelected);
-
   const indexCocktail = favouritesListData.findIndex(cocktail => cocktail.idDrink === idSelected);
-  console.log(indexCocktail);
 
   if (indexCocktail === -1) { 
     favouritesListData.push(selectedCocktail);
@@ -92,7 +86,6 @@ function handleClickCocktail(ev) {
   renderFavouritesList(favouritesListData);
 
   localStorage.setItem('favourites', JSON.stringify(favouritesListData));
-  console.log('favourites');
 }
 
 function addEventToCocktail() {
@@ -103,6 +96,12 @@ function addEventToCocktail() {
 }
 
 // Search cocktails with the search button
+
+function handleEnterSearch(ev) {
+  if (ev.keyCode === 13) {
+    handleClickSearch(ev);
+  }
+}
 
 function handleClickSearch(ev) {
   ev.preventDefault();
@@ -126,10 +125,11 @@ function handleClickReset(event) {
   favouritesList.innerHTML = '';
   input.value = '';
   localStorage.removeItem('cocktails');
+  /*localStorage.removeItem('favourites');*/
 }
-
 
 //EVENTOS
 
-searchBtn.addEventListener('click', handleClickSearch);
 resetBtn.addEventListener('click', handleClickReset);
+searchBtn.addEventListener('click', handleClickSearch);
+document.addEventListener('keypress', handleEnterSearch);
