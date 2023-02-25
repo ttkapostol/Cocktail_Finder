@@ -1,3 +1,4 @@
+
 //Render cocktails
 function renderCocktail(cocktail) {
   let html = `<li class="li js-li-cocktail" id="${cocktail.idDrink}">
