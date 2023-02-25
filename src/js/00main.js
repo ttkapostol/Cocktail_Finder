@@ -102,7 +102,7 @@ function addEventToCocktail() {
   }
 }
 
-// Búsqueda por search
+// Search cocktails with the search button
 
 function handleClickSearch(ev) {
   ev.preventDefault();
@@ -118,4 +118,17 @@ function handleClickSearch(ev) {
     );
 }
 
+//Reset everything with the reset button
+
+function handleClickReset() {
+  cocktailsList.innerHTML = '';
+  favouritesList.innerHTML = '';
+  searchValue = '';
+  localStorage.removeItem('cocktails');
+}
+
+
+//EVENTOS
+
 searchBtn.addEventListener('click', handleClickSearch);
+resetBtn.addEventListener('click', handleClickReset);
