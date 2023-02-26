@@ -4,7 +4,7 @@
 
 This project was the final evaluation for the second module of a Web Programming bootcamp organized and implemented by [Adalab](https://adalab.es/) (Promo Salas, 2023).
 
-It is an exercise JavaScript.
+It is an exercise mainly focused on JavaScript.
 
 ## Authors
 
