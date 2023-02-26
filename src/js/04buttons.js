@@ -15,7 +15,7 @@ function handleClickSearch(ev) {
     .then((response) => response.json())
     .then((data) => {
       cocktailsListData = data.drinks;
-      renderCocktailsList(cocktailsListData);
+      renderCocktailsList(cocktailsList);
     }
     );
 }
@@ -28,7 +28,6 @@ function handleClickReset(event) {
   favouritesList.innerHTML = '';
   input.value = '';
   localStorage.removeItem('cocktails');
-  /*localStorage.removeItem('favourites');*/
 }
 
 //EVENTOS

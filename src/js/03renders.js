@@ -67,19 +67,19 @@
 //DOM WITH IF
 
 //Render cocktails
-function renderCocktail(item, isFavourite) {
+function renderCocktail(cocktail, isFavourite) {
   const liElement = document.createElement('li');
   const articleElement = document.createElement('article');
   const h3Element = document.createElement('h3');
-  const title = document.createTextNode(item.strDrink);
+  const title = document.createTextNode(cocktail.strDrink);
   const imgElement = document.createElement('img');
 
   liElement.setAttribute('class', 'li js-li-cocktail');
-  liElement.dataset.id = item.idDrink;
+  liElement.dataset.id = cocktail.idDrink;
 
   articleElement.setAttribute('class', 'li__article');
 
-  imgElement.setAttribute('src', item.strDrinkThumb || imgPlaceholder);
+  imgElement.setAttribute('src', cocktail.strDrinkThumb || imgPlaceholder);
   imgElement.setAttribute('class', 'li__article--img');
 
   h3Element.appendChild(title);
@@ -93,7 +93,7 @@ function renderCocktail(item, isFavourite) {
     const favBtn = document.createElement('div');
     const favBtnIcon = document.createElement('span');
 
-    favBtn.setAttribute('id', item.idDrink);
+    favBtn.setAttribute('id', cocktail.idDrink);
     favBtnIcon.setAttribute('class', 'fa-solid fa-heart');
 
     favBtn.appendChild(favBtnIcon);
@@ -109,42 +109,28 @@ function renderCocktail(item, isFavourite) {
 
 function renderCocktailsList(list, isFavourite) {
   if (list !== null) {
-  for (const item of list) {
-    renderCocktail(item, isFavourite);
+  for (const cocktail of list) {
+    renderCocktail(cocktail, isFavourite);
     }
   }
-  addEventToCocktail()
+  addEventToCocktail();
 }
-
-//Render favourite cocktails
-
-// function renderFavouritesList(favouritesListData) {
-//   favouritesList.innerHTML = ``;
-//   for (const cocktail of favouritesListData) {
-//     renderCocktail(cocktail);
-//   }
-// }
-
-//Select favourites
 
 function handleClickCocktail(ev) {
   ev.currentTarget.classList.toggle('selected');
   const idSelected = ev.currentTarget.id;
-  const selectedCocktail = cocktailsListData.find(item => item.idDrink === idSelected);
-  const indexCocktail = favouritesListData.findIndex(item => item.idDrink === idSelected);
+  const selectedCocktail = cocktailsListData.find(cocktail => cocktail.idDrink === idSelected);
+  const indexCocktail = favouritesListData.findIndex(cocktail => cocktail.idDrink === idSelected);
 
   if (indexCocktail === -1) { 
     favouritesListData.push(selectedCocktail);
   } else {
     favouritesListData.splice(indexCocktail, 1);
   }
-  renderFavouritesList(item, true);
+  renderCocktailsList(cocktail, true);
   localStorage.setItem('cocktails', JSON.stringify(favouritesListData));
 }
 
 function addEventToCocktail() {
-  const liElement = document.querySelectorAll('.js-li-cocktail');
-  for (const liElement of liElementsList) {
-    liElement.addEventListener('click', handleClickCocktail);
-  }
+ liElement.addEventListener('click', handleClickCocktail);
 }
