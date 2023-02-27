@@ -56,8 +56,6 @@ function handleClickSearch() {
   addCocktails(url);
 }
 
-
-
 // Render cocktails
 function renderCocktail(cocktail) {
   const selectedCocktail = favouritesListData.find(favCocktail => favCocktail.strDrink === cocktail.strDrink);
@@ -68,8 +66,7 @@ function renderCocktail(cocktail) {
   const imgElement = document.createElement('img');
 
   liElement.setAttribute('class', `li js-li-cocktail ${selectedCocktail && 'selected'}`);
-  liElement.dataset.id = cocktail.idDrink;
-
+  liElement.setAttribute('id', cocktail.idDrink);
   articleElement.setAttribute('class', 'li__article');
 
   imgElement.setAttribute('src', cocktail.strDrinkThumb || imgPlaceholder);
@@ -92,6 +89,7 @@ function renderCocktailsList(cocktailsListData) {
 //Render favourite cocktails
 
 function renderFavCocktail(cocktail) {
+  console.log(cocktail);
   const liElement = document.createElement('li');
   const articleElement = document.createElement('article');
   const h3Element = document.createElement('h3');
@@ -102,18 +100,17 @@ function renderFavCocktail(cocktail) {
   liElement.setAttribute('id', cocktail.idDrink);
 
   articleElement.setAttribute('class', 'li__article');
-
   const title = document.createTextNode(cocktail.strDrink);
 
   favBtn.setAttribute('class', 'fa-solid fa-heart js-fav-btn');
-  //favBtn.addEventListener('click', handleClickRemoveFav);
+  favBtn.addEventListener('click', handleClickFavBtn);
 
   imgElement.setAttribute('src', cocktail.strDrinkThumb || imgPlaceholder);
   imgElement.setAttribute('class', 'li__article--img');
 
   h3Element.appendChild(title);
+  h3Element.appendChild(favBtn);
   articleElement.appendChild(h3Element);
-  articleElement.appendChild(favBtn);
   articleElement.appendChild(imgElement);
   liElement.appendChild(articleElement);
   favouritesList.appendChild(liElement);
@@ -124,7 +121,6 @@ function renderFavouritesList(favouritesListData) {
   for (const cocktail of favouritesListData) {
     renderFavCocktail(cocktail);
   }
-  addEventToFavBtn();
 }
 
 function addEventToCocktail() {
@@ -146,6 +142,7 @@ function addEventToFavBtn() {
 function handleClickCocktail(ev) {
   ev.currentTarget.classList.toggle('selected');
   const idSelected = ev.currentTarget.id;
+  console.log(idSelected);
   const selectedCocktail = cocktailsListData.find(cocktail => cocktail.idDrink === idSelected);
   const indexCocktail = favouritesListData.findIndex(cocktail => cocktail.idDrink === idSelected);
 
@@ -154,6 +151,7 @@ function handleClickCocktail(ev) {
   } else {
     favouritesListData.splice(indexCocktail, 1);
   }
+  console.log(favouritesListData);
   renderFavouritesList(favouritesListData);
 
   localStorage.setItem('cocktails', JSON.stringify(favouritesListData));
