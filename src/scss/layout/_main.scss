@@ -25,12 +25,15 @@
         &__article{
             margin-top: 10px;
             margin-bottom: 10px;
+            border: solid 3px #fe5ad7;
+            padding: 5px;
             border-radius: 5px;
                 &--title{
                     line-height: 20px;
                     font-size: 18px;
                     margin-bottom: 10px;
                     .fa-solid.fa-heart {
+                        margin-left: 10px;
                         color:#00e8ff;
                         font-size: 16px;
                     }
@@ -76,17 +79,23 @@
         }
     
             .li {
+            text-align: center;
                 &__article {
                     margin-top: 10px;
-
+                    margin-bottom: 10px;
+                    border: solid 3px #96eb74;
+                        padding: 5px;
+                        border-radius: 5px;
+                   
                     &--title {
+                        line-height: 20px;
                         font-size: 18px;
                         margin-bottom: 10px;
                     }
-
+                    
                     &--img {
-                        width: 200px;
-                        height: 200px;
+                            width: 200px;
+                            height: 200px;
                     }
                 }
             }
@@ -95,7 +104,7 @@
 
 .selected {
     background-color:black;
-    color: #00e8ff;
+    color: #96eb74;
     padding: 10px;
 }
 

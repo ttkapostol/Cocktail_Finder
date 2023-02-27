@@ -29,7 +29,6 @@ function addCocktails(url) {
   .then(data => {
       if (data.drinks) {
         cocktailsListData = data.drinks;
-        console.log(data.drinks);
         renderCocktailsList(cocktailsListData);
         notFound.innerHTML = '';
         console.log('I fetch');
@@ -69,7 +68,10 @@ function renderCocktail(cocktail) {
 
   liElement.setAttribute('class', `li js-li-cocktail ${selectedCocktail && 'selected'}`);
   liElement.setAttribute('id', cocktail.idDrink);
+
   articleElement.setAttribute('class', 'li__article');
+
+  h3Element.setAttribute('class', 'li__article--title');
 
   imgElement.setAttribute('src', cocktail.strDrinkThumb || imgPlaceholder);
   imgElement.setAttribute('class', 'li__article--img');
@@ -92,7 +94,6 @@ function renderCocktailsList(cocktailsListData) {
 //Render favourite cocktails
 
 function renderFavCocktail(cocktail) {
-  console.log(cocktail);
   const liElement = document.createElement('li');
   const articleElement = document.createElement('article');
   const h3Element = document.createElement('h3');
@@ -153,7 +154,6 @@ function removeSelected(item) {
 
 function handleClickCocktail(ev) {
   const idSelected = ev.currentTarget.id;
-  console.log(idSelected);
   const selectedCocktail = cocktailsListData.find(cocktail => cocktail.idDrink === idSelected);
   const indexCocktail = favouritesListData.findIndex(cocktail => cocktail.idDrink === idSelected);
 
