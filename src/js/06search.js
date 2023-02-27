@@ -1,5 +1,11 @@
 
 // Search cocktails with the search button
+function handleEnterSearch(ev) {
+  if (ev.key === "Enter") {
+  ev.preventDefault();
+  handleClickSearch(ev);
+}
+};
 
 function handleClickSearch(ev) {
   ev.preventDefault();
