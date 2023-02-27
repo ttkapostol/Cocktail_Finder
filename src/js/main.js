@@ -43,6 +43,11 @@ function addCocktails(url) {
 addCocktails('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita');
 
 // Search cocktails with the search button
+function handleEnterSearch(ev) {
+  if (ev.code === 'Enter') {
+    handleClickSearch(ev);
+  }
+}
 
 function handleClickSearch() {
   const searchValue = input.value;
@@ -51,11 +56,7 @@ function handleClickSearch() {
   addCocktails(url);
 }
 
-function handleEnterSearch(ev) {
-  if (ev.keyCode === 13) {
-    handleClickSearch(ev);
-  }
-}
+
 
 // Render cocktails
 function renderCocktail(cocktail) {
@@ -186,4 +187,4 @@ function handleClickReset(event) {
 //EVENTOS
 resetBtn.addEventListener('click', handleClickReset);
 searchBtn.addEventListener('click', handleClickSearch);
-document.addEventListener('keypress', handleEnterSearch);
+input.addEventListener('keyup', handleEnterSearch);
