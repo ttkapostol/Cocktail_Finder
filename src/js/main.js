@@ -141,12 +141,14 @@ function addSelected(item) {
   if (item !== null) {
     item.classList.add('selected');
   }
+ resetFavBtnHidden(); 
 }
 
 function removeSelected(item) {
   if (item !== null) {
     item.classList.remove('selected');
   }
+  resetFavBtnHidden();
 }
 
 function handleClickCocktail(ev) {
@@ -169,11 +171,12 @@ function handleClickCocktail(ev) {
 }
 
 //Remove from favourites
+
 function resetFavBtnHidden() {
-  if(listDataFavorites.length === 0) {
-    resetFavBtn.classList.add('hidden');
-  } else {
+  if (favouritesListData && favouritesListData.length > 0) {
     resetFavBtn.classList.remove('hidden');
+  } else {
+    resetFavBtn.classList.add('hidden');
   }
 }
 
