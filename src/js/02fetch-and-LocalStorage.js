@@ -21,6 +21,7 @@ function addCocktails(url) {
         cocktailsListData = [];
         renderCocktailsList(cocktailsListData);
       }
+  resetFavBtnHidden();
     });
 }
 
