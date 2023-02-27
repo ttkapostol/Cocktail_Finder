@@ -1,6 +1,6 @@
 'use strict';
 
-const imgPlaceholder = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV'
+const imgPlaceholder = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
 const input = document.querySelector('.js-input');
 const searchBtn = document.querySelector('.js-search-btn');
 const resetBtn = document.querySelector('.js-reset-btn');
@@ -49,10 +49,11 @@ function handleEnterSearch(ev) {
   }
 }
 
-function handleClickSearch() {
+function handleClickSearch(ev) {
+  //ev.preventDefault();
+  cocktailsList.innerHTML = '';
   const searchValue = input.value;
   const url = `http://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchValue}`;
-  cocktailsList.innerHTML = '';
   addCocktails(url);
 }
 
@@ -80,6 +81,7 @@ function renderCocktail(cocktail) {
 }
 
 function renderCocktailsList(cocktailsListData) {
+  cocktailsList.innerHTML = '';
   for (const cocktail of cocktailsListData) {
     renderCocktail(cocktail);
   }
@@ -96,17 +98,19 @@ function renderFavCocktail(cocktail) {
   const favBtn = document.createElement('span');
   const imgElement = document.createElement('img');
 
-  liElement.setAttribute('class', 'li js-li-cocktail');
+  liElement.setAttribute('class', 'liFav js-li-cocktail');
   liElement.setAttribute('id', cocktail.idDrink);
 
-  articleElement.setAttribute('class', 'li__article');
+  articleElement.setAttribute('class', 'liFav__article');
+
+  h3Element.setAttribute('class', 'liFav__article--title');
   const title = document.createTextNode(cocktail.strDrink);
 
   favBtn.setAttribute('class', 'fa-solid fa-heart js-fav-btn');
   favBtn.addEventListener('click', handleClickFavBtn);
 
   imgElement.setAttribute('src', cocktail.strDrinkThumb || imgPlaceholder);
-  imgElement.setAttribute('class', 'li__article--img');
+  imgElement.setAttribute('class', 'liFav__article--img');
 
   h3Element.appendChild(title);
   h3Element.appendChild(favBtn);
@@ -130,17 +134,21 @@ function addEventToCocktail() {
   }
 }
 
-function addEventToFavBtn() {
-  const favBtns = document.querySelectorAll('.js-fav-btn');
-  for (const favBtn of favBtns) {
-    favBtn.addEventListener('click', handleClickFavBtn);
+//Select favourites
+
+function addSelected(item) {
+  if (item !== null) {
+    item.classList.add('selected');
   }
 }
 
-//Select favourites
+function removeSelected(item) {
+  if (item !== null) {
+    item.classList.remove('selected');
+  }
+}
 
 function handleClickCocktail(ev) {
-  ev.currentTarget.classList.toggle('selected');
   const idSelected = ev.currentTarget.id;
   console.log(idSelected);
   const selectedCocktail = cocktailsListData.find(cocktail => cocktail.idDrink === idSelected);
@@ -148,10 +156,12 @@ function handleClickCocktail(ev) {
 
   if (indexCocktail === -1) { 
     favouritesListData.push(selectedCocktail);
+    addSelected(ev.currentTarget);
   } else {
     favouritesListData.splice(indexCocktail, 1);
+    removeSelected(ev.currentTarget);
   }
-  console.log(favouritesListData);
+  renderCocktailsList(cocktailsListData);
   renderFavouritesList(favouritesListData);
 
   localStorage.setItem('cocktails', JSON.stringify(favouritesListData));

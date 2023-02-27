@@ -20,7 +20,31 @@
             font-weight: 700;
             color: black;
         }
+
+    .liFav{
+        &__article{
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+                &--title{
+                    line-height: 20px;
+                    font-size: 18px;
+                    margin-bottom: 10px;
+                    .fa-solid.fa-heart {
+                        color:#00e8ff;
+                        font-size: 16px;
+                    }
+                }
+                &--img {
+                    width: 200px;
+                    height: 200px;
+                }
+        }
     }
+    
+    }   
+
+
 
     &__section2 {
         display: flex;
@@ -34,8 +58,7 @@
             font-weight: 700;
             color: black;
         }
-    }
-
+    
             .li {
                 &__article {
                     margin-top: 10px;
@@ -51,6 +74,7 @@
                     }
                 }
             }
+    }
 }
 
 .selected {
