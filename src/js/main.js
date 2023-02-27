@@ -161,10 +161,10 @@ function handleClickCocktail(ev) {
 //Remove from favourites
 
 function handleClickFavBtn(ev) {
-const idSelected = ev.currentTarget.id;
-  const indexCocktail = listDataFavorites.findIndex(cocktail => cocktail.idDrink === idSelected);
+  const idSelected = ev.currentTarget.id;
+  const indexCocktail = favouritesListData.findIndex(cocktail => cocktail.idDrink === idSelected);
   if(indexCocktail !== -1) {
-    listDataFavorites.splice(indexCocktail, 1);
+    favouritesListData.splice(indexCocktail, 1);
   }
   renderFavouritesList(favouritesListData);
   renderCocktailsList(cocktailsListData);
@@ -179,8 +179,8 @@ function handleClickReset(event) {
   favouritesListData = [];
   input.value = '';
   localStorage.removeItem('cocktails');
-  renderListFavorites(favouritesListData);
-  renderCocktailList(cocktailsListData);
+  renderFavouritesList(favouritesListData);
+  renderCocktailsList(cocktailsListData);
 }
 
 //EVENTOS
