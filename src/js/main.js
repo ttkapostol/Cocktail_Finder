@@ -46,7 +46,7 @@ addCocktails('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita
 
 function handleClickSearch() {
   const searchValue = input.value;
-  let url = `http://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchValue}`;
+  const url = `http://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchValue}`;
   cocktailsList.innerHTML = '';
   addCocktails(url);
 }
@@ -186,4 +186,4 @@ function handleClickReset(event) {
 //EVENTOS
 resetBtn.addEventListener('click', handleClickReset);
 searchBtn.addEventListener('click', handleClickSearch);
-input.addEventListener('keypress', handleEnterSearch);
+document.addEventListener('keypress', handleEnterSearch);
