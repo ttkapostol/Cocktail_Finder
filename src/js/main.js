@@ -5,6 +5,7 @@ const input = document.querySelector('.js-input');
 const searchBtn = document.querySelector('.js-search-btn');
 const resetBtn = document.querySelector('.js-reset-btn');
 const notFound = document.querySelector('.js-msg');
+const resetFavBtn = document.querySelector('.js-resetFavBtn');
 const cocktailsList = document.querySelector('.js-list-cocktails');
 const favouritesList = document.querySelector('.js-list-favourites');
 
@@ -168,6 +169,13 @@ function handleClickCocktail(ev) {
 }
 
 //Remove from favourites
+function resetFavBtnHidden() {
+  if(listDataFavorites.length === 0) {
+    resetFavBtn.classList.add('hidden');
+  } else {
+    resetFavBtn.classList.remove('hidden');
+  }
+}
 
 function handleClickFavBtn(ev) {
   const idSelected = ev.currentTarget.id;
