@@ -6,6 +6,8 @@
     padding: 30px auto;
     text-align: center;
     background-color: black;
+    position: sticky;
+    top: 0;
 
     &__title {
         font-size: 30px;

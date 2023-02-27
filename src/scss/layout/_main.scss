@@ -3,7 +3,7 @@
     align-items: flex-start;
     justify-content: space-between;
     padding: 0 20px;
-    background-color:#f0fdfd;
+    background-color: #fff1ff;
     min-height: 600px;
 
 
@@ -12,9 +12,15 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        padding-top: 30px;
+        border-radius: 5px;
+        padding-left: 100px;
 
         &--title {
             font-size: 20px;
+            font-weight: 700;
+            color: black;
+
         }
     }
 
@@ -22,9 +28,13 @@
         display: flex;
         flex-direction: column;
         align-items: left;
+        padding-top: 30px;
+        padding-right: 100px;
 
         &--title {
             font-size: 20px;
+            font-weight: 700;
+            color: black;
         }
     }
 
@@ -34,7 +44,7 @@
 
                     &--title {
                         font-size: 18px;
-                        margin-bottom: 5px;
+                        margin-bottom: 10px;
                     }
 
                     &--img {
@@ -46,9 +56,9 @@
 }
 
 .selected {
-    background-color: #f9ab18;
-    color: #31578d;
-    padding: 30px;
+    background-color:black;
+    color: #00e8ff;
+    padding: 10px;
 }
 
 .hidden {
