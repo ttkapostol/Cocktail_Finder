@@ -36,6 +36,8 @@ function handleClickReset(event) {
   favouritesListData = [];
   input.value = '';
   localStorage.removeItem('cocktails');
+  resetFavBtnHidden();
+  addCocktails('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita');
   renderFavouritesList(favouritesListData);
   renderCocktailsList(cocktailsListData);
 }
