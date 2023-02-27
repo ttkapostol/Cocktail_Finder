@@ -141,7 +141,7 @@ function addSelected(item) {
   if (item !== null) {
     item.classList.add('selected');
   }
- resetFavBtnHidden(); 
+  resetFavBtnHidden();
 }
 
 function removeSelected(item) {
@@ -180,6 +180,15 @@ function resetFavBtnHidden() {
   }
 }
 
+function handleClearFavList() {
+  favouritesListData = [];
+  localStorage.removeItem('cocktails');
+  resetFavBtnHidden();
+  renderFavouritesList(favouritesListData);
+  renderCocktailsList(cocktailsListData);
+}
+
+
 function handleClickFavBtn(ev) {
   const idSelected = ev.currentTarget.id;
   const indexCocktail = favouritesListData.findIndex(cocktail => cocktail.idDrink === idSelected);
@@ -204,6 +213,7 @@ function handleClickReset(event) {
 }
 
 //EVENTOS
+resetFavBtn.addEventListener('click', handleClearFavList);
 resetBtn.addEventListener('click', handleClickReset);
 searchBtn.addEventListener('click', handleClickSearch);
 input.addEventListener('keyup', handleEnterSearch);
