@@ -8,9 +8,7 @@
   <!-- Google Fonts
       <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
     -->
-  <!-- Icons
-    
-    -->
+  <script src="https://kit.fontawesome.com/8841dc85f6.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./assets/css/main.css" />
   <link rel="icon" href="./assets/images/favicon.png" />
 </head>
@@ -18,12 +16,17 @@
 <body>
   <header class="header">
     <h1 class="header__title">Buscador de Cócteles</h1>
-    <form>
+    <form class="header__form">
       <input type="text" placeholder="Busca un cóctel" class="js-input" />
       <input type="button" value="Buscar" class="js-search-btn" />
       <input type="button" value="Reset" class="js-reset-btn" />
     </form>
+    <p class="header__p js-msg"></p>
   </header>
+  <section id="hero" class="hero">
+      <img class="hero__img" src="./assets/images/hero.png" alt="Neon bar" title="Neon bar photo">
+    
+  </section>
   <main class="main">
 
       <section class="main__section1 js-favourites">
@@ -48,8 +51,6 @@
           <span> &copy; </span> 2023 
       </p>
   </footer>
-
-
   
   <script src="./assets/js/main.js"></script>
 </body>
