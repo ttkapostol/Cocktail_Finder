@@ -6,6 +6,7 @@ const input = document.querySelector('.js-input');
 const searchBtn = document.querySelector('.js-search-btn');
 const resetBtn = document.querySelector('.js-reset-btn');
 const notFound = document.querySelector('.js-msg');
+const resetFavBtn = document.querySelector('.js-resetFavBtn');
 const cocktailsList = document.querySelector('.js-list-cocktails');
 const favouritesList = document.querySelector('.js-list-favourites');
 
@@ -141,12 +142,14 @@ function addSelected(item) {
   if (item !== null) {
     item.classList.add('selected');
   }
+  resetFavBtnHidden();
 }
 
 function removeSelected(item) {
   if (item !== null) {
     item.classList.remove('selected');
   }
+  resetFavBtnHidden();
 }
 
 function handleClickCocktail(ev) {
@@ -169,6 +172,23 @@ function handleClickCocktail(ev) {
 }
 
 //Remove from favourites
+
+function resetFavBtnHidden() {
+  if (favouritesListData && favouritesListData.length > 0) {
+    resetFavBtn.classList.remove('hidden');
+  } else {
+    resetFavBtn.classList.add('hidden');
+  }
+}
+
+function handleClearFavList() {
+  favouritesListData = [];
+  localStorage.removeItem('cocktails');
+  resetFavBtnHidden();
+  renderFavouritesList(favouritesListData);
+  renderCocktailsList(cocktailsListData);
+}
+
 
 function handleClickFavBtn(ev) {
   const idSelected = ev.currentTarget.id;
@@ -194,6 +214,7 @@ function handleClickReset(event) {
 }
 
 //EVENTOS
+resetFavBtn.addEventListener('click', handleClearFavList);
 resetBtn.addEventListener('click', handleClickReset);
 searchBtn.addEventListener('click', handleClickSearch);
 input.addEventListener('keyup', handleEnterSearch);
