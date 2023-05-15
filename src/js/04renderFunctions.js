@@ -6,6 +6,7 @@ function renderCocktail(cocktail) {
   const h3Element = document.createElement('h3');
   const title = document.createTextNode(cocktail.strDrink);
   const imgElement = document.createElement('img');
+  const pElement = document.createElement('p');
 
   liElement.setAttribute('class', `li js-li-cocktail ${selectedCocktail && 'selected'}`);
   liElement.setAttribute('id', cocktail.idDrink);
@@ -17,9 +18,19 @@ function renderCocktail(cocktail) {
   imgElement.setAttribute('src', cocktail.strDrinkThumb || imgPlaceholder);
   imgElement.setAttribute('class', 'li__article--img');
 
+  let alcohol = '';
+
+  if (cocktail.strAlcoholic === 'Alcoholic') {
+  alcohol = document.createTextNode(`La bebida que has elegido contiene alcohol`)
+  } else {
+  alcohol = document.createTextNode(`La bebida que has elegido no contiene alcohol`)  
+  };
+
   h3Element.appendChild(title);
   articleElement.appendChild(h3Element);
-  articleElement.appendChild(imgElement);
+  articleElement.appendChild(imgElement);  
+  articleElement.appendChild(pElement);
+  pElement.appendChild(alcohol);
   liElement.appendChild(articleElement);
   cocktailsList.appendChild(liElement);
 }

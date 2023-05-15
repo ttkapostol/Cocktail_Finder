@@ -19,7 +19,10 @@ function handleClearFavList() {
 
 function handleClickFavBtn(ev) {
   const idSelected = ev.currentTarget.id;
+  console.log(ev.currrentTarget.id);
   const indexCocktail = favouritesListData.findIndex(cocktail => cocktail.idDrink === idSelected);
+  console.log(indexCocktail);
+  console.log(favouritesListData[indexCocktail]);
   if(indexCocktail !== -1) {
     favouritesListData.splice(indexCocktail, 1);
   }

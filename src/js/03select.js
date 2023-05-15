@@ -18,7 +18,7 @@ function handleClickCocktail(ev) {
   const idSelected = ev.currentTarget.id;
   const selectedCocktail = cocktailsListData.find(cocktail => cocktail.idDrink === idSelected);
   const indexCocktail = favouritesListData.findIndex(cocktail => cocktail.idDrink === idSelected);
-
+  console.log(selectedCocktail.strDrink);
   if (indexCocktail === -1) { 
     favouritesListData.push(selectedCocktail);
     addSelected(ev.currentTarget);
