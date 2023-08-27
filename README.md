@@ -19,7 +19,8 @@ My final evaluation was supervised by my instructors:
 - Iván Garrido [@igarrido-adalab](https://github.com/igarrido-adalab)
 
 ## Tools
-
+- node.js
+- npm
 - Vs Code
 - GitHub
 - Adalab Starter Kit
